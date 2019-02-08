@@ -1,0 +1,100 @@
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include "data.txt"
+using namespace std;
+
+
+struct Person
+{
+char Name[20];
+float balance;
+
+};
+
+void count()
+{
+  //int k =0;
+  std::ifstream hello;
+  hello.open("data.txt");
+  std::ifstream infile("data.txt");
+  
+  Person ok;
+  
+   if(hello.is_open())
+   {
+      
+    while( hello >> ok.Name>>ok.balance)
+    {
+      hello.getline(ok.Name, ok.balance);
+      infile.getline(ok.Name, ok.balance);
+    }
+     hello.close();
+   }
+   // return k;
+  
+}
+
+void Display(int a[], int n)
+{
+   for(int i=0; i< n; i++)
+   {
+     
+   }
+
+
+
+    /*
+   std::ifstream hello;
+  hello.open("data.txt");
+  Person ok;
+   if(hello.is_open())
+   {
+    while( hello >> ok.Name>>ok.balance)
+    {
+      std::cout<<ok.Name<<""<<ok.balance;
+    }
+     hello.close();
+   }
+   */
+}
+   
+
+
+void FindRichest(int name, int amount)
+{
+
+}
+
+
+int main()
+{
+  std::ifstream hello;
+  hello.open("data.txt");
+  Person ok;
+  char names;
+  int entry = 0;
+
+  while(hello)
+  {
+    if( names == '\n')
+    {
+      entry++;
+    }
+    hello.get(names);
+  }
+  hello.close();
+  int n = entry;
+
+
+  int PersonP[n];
+  
+   
+   //int k = 6;
+  //count();
+  Display(PersonP,n);
+
+   // FindRichest(a,n);
+
+
+}
