@@ -17,37 +17,33 @@ void count()
   //int k =0;
   std::ifstream hello;
   hello.open("data.txt");
-  std::ifstream infile("data.txt");
+  
   
   Person ok;
   
    if(hello.is_open())
    {
-      
     while( hello >> ok.Name>>ok.balance)
     {
       hello.getline(ok.Name, ok.balance);
-      infile.getline(ok.Name, ok.balance);
     }
      hello.close();
    }
    // return k;
-  
+/*   // while it does not hit end of file, contiunely get line
+    while(!hello.eof())
+      {
+        hello.getline(ok.Name, ok.balance);
+      }
+*/
 }
 
-void Display(int a[], int n)
+void Display(int PersonP[],int n)
 {
-   for(int i=0; i< n; i++)
-   {
-     
-   }
-
-
-
-    /*
-   std::ifstream hello;
-  hello.open("data.txt");
   Person ok;
+  std::ifstream hello;
+  hello.open("data.txt");
+  
    if(hello.is_open())
    {
     while( hello >> ok.Name>>ok.balance)
@@ -56,7 +52,7 @@ void Display(int a[], int n)
     }
      hello.close();
    }
-   */
+   
 }
    
 
@@ -72,17 +68,13 @@ int main()
   std::ifstream hello;
   hello.open("data.txt");
   Person ok;
-  char names;
   int entry = 0;
-
-  while(hello)
-  {
-    if( names == '\n')
-    {
-      entry++;
-    }
-    hello.get(names);
-  }
+  
+  while(!hello.eof())
+      {
+        hello.getline(ok.Name, ok.balance);
+       entry++;
+      }
   hello.close();
   int n = entry;
 
@@ -90,11 +82,8 @@ int main()
   int PersonP[n];
   
    
-   //int k = 6;
-  //count();
+   
+  count();
   Display(PersonP,n);
-
    // FindRichest(a,n);
-
-
 }
