@@ -72,6 +72,7 @@ int main()
   
   while(!hello.eof())
       {
+        hello>>ok.Name>>ok.balance;
         hello.getline(ok.Name, ok.balance);
        entry++;
       }
