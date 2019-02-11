@@ -9,34 +9,7 @@ struct Person
 {
 char Name[20];
 float balance;
-
 };
-
-void count()
-{
-  //int k =0;
-  std::ifstream hello;
-  hello.open("data.txt");
-  
-  
-  Person ok;
-  
-   if(hello.is_open())
-   {
-    while( hello >> ok.Name>>ok.balance)
-    {
-      hello.getline(ok.Name, ok.balance);
-    }
-     hello.close();
-   }
-   // return k;
-/*   // while it does not hit end of file, contiunely get line
-    while(!hello.eof())
-      {
-        hello.getline(ok.Name, ok.balance);
-      }
-*/
-}
 
 void Display(int PersonP[],int n)
 {
@@ -44,22 +17,27 @@ void Display(int PersonP[],int n)
   std::ifstream hello;
   hello.open("data.txt");
   
+  for(int i =0; i<n; i++)
+  {
+  std::cout<<PersonP[i]<< ok.Name <<std::endl;
+  std::cout<< PersonP[i]<<ok.balance<<std::endl;
+  }
+  hello.close();
+ 
+ /*  
    if(hello.is_open())
    {
     while( hello >> ok.Name>>ok.balance)
     {
       std::cout<<ok.Name<<""<<ok.balance;
     }
-     hello.close();
-   }
-   
+*/    
 }
-   
-
 
 void FindRichest(int name, int amount)
 {
-
+  
+  
 }
 
 
@@ -79,12 +57,10 @@ int main()
   hello.close();
   int n = entry;
 
-
+ 
   int PersonP[n];
   
-   
-   
-  count();
+
   Display(PersonP,n);
    // FindRichest(a,n);
 }
