@@ -17,10 +17,9 @@ void Display(int PersonP[],int n)
   std::ifstream hello;
   hello.open("data.txt");
   
-  for(int i =0; i<n; i++)
+  for(int i =1; i<n+1; i++)
   {
-  std::cout<<PersonP[i]<< ok.Name <<std::endl;
-  std::cout<< PersonP[i]<<ok.balance<<std::endl;
+  std::cout<<PersonP[i]<< ok.Name << ok.balance << std::endl;
   }
   hello.close();
  
@@ -34,8 +33,19 @@ void Display(int PersonP[],int n)
 */    
 }
 
-void FindRichest(int name, int amount)
+void FindRichest(int PersonP[], int n)
 {
+Person ok;
+
+
+  for(int i=0; i<n; i++)
+  {
+    if(PersonP[i] != ok.balance)
+    {
+      PersonP[i] = ok.balance;
+      ok.balance = PersonP[i];
+    }
+  }
   
   
 }
@@ -59,8 +69,10 @@ int main()
 
  
   int PersonP[n];
-  
+
+  Person P[n];
+
 
   Display(PersonP,n);
-   // FindRichest(a,n);
+  FindRichest(PersonP,n);
 }
