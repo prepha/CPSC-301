@@ -53,16 +53,18 @@ int main()
   //std::ifstream hello;
   //hello.open("data.txt");
   Person ok;
-  int entry = 0;
   
-
   
-   while(hello.getline(ok.Name, 20))
+    int entry = 0;
+  
+   while(hello>>ok.Name)
       {
-        hello>>ok.Name;
+       // hello>> ok.Name;
+      hello.getline(ok.Name, 20);
         //int n;
-       ++entry;
-      cout<<entry;
+       entry++;
+      //cout<<entry<<endl;
+  
       //hello>>ok.Name;
       //cout<<ok.Name;
         //hello.getline(ok.Name,5);
@@ -74,13 +76,12 @@ int main()
         //Person P[n];
         //hello.getline(ok.Name,n);
         //cout<<n<<endl;
-        
       }
+int n =entry;
 
+cout<<n;
 
-  
-  
- // Person P[n];
+ Person P[n];
   //std::string CustName;
   // Display(P,n);
  // FindRichest(P,n);
