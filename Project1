@@ -4,10 +4,7 @@
 #include <string>
 #include <string.h>
 
-
-
 using namespace std;
-
 
 struct Person
 {
@@ -20,10 +17,25 @@ void Display(Person P[],int n)
 {
   std::ifstream hello;
   hello.open("data.txt");
-  
-  for(int i =1; i<n+1; i++)
+  Person ok;
+
+   
+  for(int i =0; i<n; i++)
   {
-  std::cout<<P[i].Name << P[i].balance;
+    
+
+    //hello.get(P[i].Name, n);
+    hello.getline(P[i].Name,30);
+    //hello>>P[i].Name;
+
+    //hello.ignore(20,'\0');
+    
+   //hello.getline(P[i].Name, 20);
+    cout<<P[i].Name;
+    
+
+  //std::cout<<P[i].Name << P[i].balance;
+  
   }
   hello.close();  
 }
@@ -55,11 +67,11 @@ int main()
   Person ok;
   
   
-    int entry = 0;
+  int entry = 0;
   
-   while(hello>>ok.Name)
+   while(!hello.eof())    //while(hello>>ok.Name)
       {
-       // hello>> ok.Name;
+      hello>>ok.Name;
       hello.getline(ok.Name, 20);
         //int n;
        entry++;
@@ -79,11 +91,10 @@ int main()
       }
 int n =entry;
 
-cout<<n;
-
+//cout<<n;
  Person P[n];
   //std::string CustName;
-  // Display(P,n);
+   Display(P,n);
  // FindRichest(P,n);
 //  Deposit(CustName,P,n);
 
