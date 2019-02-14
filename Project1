@@ -38,8 +38,6 @@ void Display(Person P[],int n)
     P[i].balance=num;
     cout<<P[i].Name;
     cout<<P[i].balance<<endl;
-  
-  
   }
   hello.close();  
 }
@@ -63,7 +61,7 @@ void FindRichest(Person P[], int n)
   {
     if(balance ==P[i].balance)
     {
-      cout<<"Person with  "<<P[i].Name<<endl;
+      cout<<"Person with highest value is "<<P[i].Name<<endl;
     }
   }
 
@@ -71,21 +69,40 @@ void FindRichest(Person P[], int n)
 }
 
 
-void Deposit(std::string CustName, Person P[],int n)
+void Deposit(char* CustName, Person P[],int n)
 {
- std::ifstream hello;
-
+ std::ifstream hello; 
+ Person ok;
   int deposit = 0;
-  for(int i=0; i<n; ++i)
- {
-  cout<<"Enter Full name to deposit:";
-  hello.getline(P[i].Name,20);
-  cout<<"How much would you like to deposit";
-  hello>>deposit;
-  P[i].balance+=deposit;
-  cout<<"Now your new balance is:"<<P[i].balance;
+ 
+for (int i=0; i<1; i++)
+{
+ hello>>P[i].Name;
+ hello>>P[i].balance;
+ float deposit = 0.0;
 
- }
+ cout<<"Enter Full name to deposit:";
+ cin.get(CustName,20);
+
+ cout<<"How much would you like to deposit"<<endl;
+ hello>>deposit;
+ deposit+=P[i].balance;
+ 
+ cout<<"Your new balance is" <<deposit<<endl;
+
+    /*
+  if(strcmp(CustName, P[i].Name) == 0)
+  {
+    cout<<"Enter Full name to deposit:"<<endl;
+    hello.getline(CustName,20);
+    cout<<"How much would you like to deposit"<<endl;
+    hello>>deposit;
+    P[i].balance+=deposit;
+    cout<<"Now your new balance is:"<<P[i].balance<<endl;
+  }
+  */
+}
+
 }
 
 int main()
@@ -108,7 +125,7 @@ int n =entry;
 //cout<<"The counter is :"<<n<<endl;
  Person P[n];
 
-  std::string CustName;
+  char CustName[20];
   Display(P,n);
     FindRichest(P,n);
   Deposit(CustName,P,n);
