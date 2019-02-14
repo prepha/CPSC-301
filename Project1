@@ -1,9 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include "data.txt"
-using namespace std;
+#include <string>
+#include <string.h>
+#include <cstring>
 
+using namespace std;
 
 struct Person
 {
@@ -11,61 +13,114 @@ char Name[20];
 float balance;
 };
 
+
 void Display(Person P[],int n)
 {
   std::ifstream hello;
   hello.open("data.txt");
-  
-  for(int i =1; i<n+1; i++)
-  {
-  std::cout<<P[i].Name << P[i].balance;
-  }
-  hello.close();
  
- /*  
-   if(hello.is_open())
-   {
-    while( hello >> ok.Name>>ok.balance)
-    {
-      std::cout<<ok.Name<<""<<ok.balance;
-    }
-*/    
+ string name1;
+ string name2;
+ string sname;
+ float num;
+
+ Person ok;
+  for(int i =0; i<n; i++)
+  {
+    hello>>name1;
+    hello>>name2;
+   
+    hello>>num;
+    
+    sname = name1 + " " + name2;
+    
+    strcpy(P[i].Name,sname.c_str());
+    P[i].balance=num;
+    cout<<P[i].Name<< " ";
+    cout<<P[i].balance<<endl;
+  }
+  hello.close();  
 }
 
 void FindRichest(Person P[], int n)
 {
+  std::ifstream hello;
+  hello.open("data.txt");
+
+  float balance =0.0;
+  
   for(int i=0; i<n; i++)
   {
-    if(P[i].balance !=-1)
+    if(P[i].balance> balance)
     {
-      P[i].balance = P[n].balance;
-  
+      balance=P[i].balance;
     }
   }
   
-  
+  for(int i =0; i<n; i++)
+  {
+    if(balance ==P[i].balance)
+    {
+      cout<<"Person with highest value is "<<P[i].Name<<endl;
+    }
+  }
+
+  hello.close();
 }
 
 
+void Deposit(char* CustName, Person P[],int n)
+{
+ std::ifstream hello; 
+ float deposit = 0.0;
+
+ cout<<"Enter Full name to deposit:";
+ cin.getline(CustName,20);
+
+ cout<<"How much would you like to deposit"<<endl;
+ cin>>deposit;
+ 
+  for (int i=0; i<n; i++)
+  {
+    if(strcmp(CustName,P[i].Name) == 0)
+    {
+        deposit+=P[i].balance;
+    }
+    
+  }
+cout<<"Their new balance is" <<deposit<<endl;
+
+}
+/*
+void NewCopy(std::fstream&, Person P[],int n)
+{
+NewCopy("data.txt",P,n);
+}
+*/
 int main()
 {
+  
   std::ifstream hello;
   hello.open("data.txt");
   Person ok;
   int entry = 0;
-  
-  while(!hello.eof())
+   while(!hello.eof())    
       {
-        hello>>ok.Name>>ok.balance;
-        hello.getline(ok.Name, ok.balance);
+      hello>>ok.Name;
+      hello.getline(ok.Name, 20);
        entry++;
       }
-  hello.close();
-  int n = entry;
+int n =entry;
 
-  Person P[n];
-  
+
+//cout<<"The counter is :"<<n<<endl;
+ Person P[n];
+
+  char CustName[20];
   Display(P,n);
-   
   FindRichest(P,n);
+  Deposit(CustName,P,n);
+  
+  
+
 }
