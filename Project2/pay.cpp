@@ -31,9 +31,6 @@ void readData(Person ok[], int n)
       ok[i].setHoursWorked(hoursWorked);
       ok[i].getHoursWorked();
 
-      cout<<ok[i].fullName()<< " ";
-
-      cout<<ok[i].totalPay()<<endl;
       
     }
 
@@ -41,13 +38,19 @@ void readData(Person ok[], int n)
 
 void writeData(Person ok[], int n)
 {
-  std::fstream hello;
-  hello.open("input.txt");
+  std::ofstream sup ("output.txt");
+ 
  for(int i=0; i <n; i++)
  {
-   hello<<ok[i].fullName();
+   sup<<ok[i].fullName()<< " ";
 
-   hello<<ok[i].totalPay();
+   sup<<ok[i].totalPay()<<endl;
+
+   cout<<ok[i].fullName()<< " ";
+
+    cout<<ok[i].totalPay()<<endl;
+
+   
 
  }
 
