@@ -39,9 +39,18 @@ void readData(Person ok[], int n)
 
 }
 
-void writeData(Person ok[])
+void writeData(Person ok[], int n)
 {
- 
+  std::fstream hello;
+  hello.open("input.txt");
+ for(int i=0; i <n; i++)
+ {
+   hello<<ok[i].fullName();
+
+   hello<<ok[i].totalPay();
+
+ }
+
 }
 
 int main()
@@ -55,12 +64,11 @@ int main()
 
  int n =6;
   Person ok[n];
- 
- cout<<"hello"<<endl;
+
  
  
    readData(ok, n);
-   //writeData(ok);
+    writeData(ok, n);
 
   hello.close();
 
