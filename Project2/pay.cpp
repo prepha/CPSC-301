@@ -9,6 +9,7 @@ void readData(Person ok[], int n)
   string lastName;
   float payRate;
   float hoursWorked;
+  
 
    std::fstream hello;
   hello.open("input.txt");
@@ -22,7 +23,7 @@ void readData(Person ok[], int n)
       ok[i].setLastName(lastName);
       ok[i].getLastName();
 
-      ok[i].fullName();
+     // ok[i].fullName();
 
 
       ok[i].setPayRate(payRate);
@@ -30,7 +31,7 @@ void readData(Person ok[], int n)
 
       ok[i].setHoursWorked(hoursWorked);
       ok[i].getHoursWorked();
-
+    
       
     }
 
@@ -38,37 +39,35 @@ void readData(Person ok[], int n)
 
 void writeData(Person ok[], int n)
 {
-  std::ofstream sup ("output.txt");
+  std::fstream sup ("output.txt");
  
  for(int i=0; i <n; i++)
- {
-   sup<<ok[i].fullName()<< " ";
+ { 
+     sup<<ok[i].fullName()<< " ";
 
-   sup<<ok[i].totalPay()<<endl;
+    sup<<ok[i].totalPay()<<endl;
 
-   cout<<ok[i].fullName()<< " ";
+    cout<<ok[i].fullName()<< " ";
 
-    cout<<ok[i].totalPay()<<endl;
+      cout<<ok[i].totalPay()<<endl;
 
+      if(ok[i].fullName() == ok[i+1].fullName())
+      {
+        break;
+      }
    
-
  }
-
 }
 
 int main()
 {
-  
 
      std::fstream hello;
   hello.open("input.txt");
 
-  
 
- int n =6;
+ int n =20;
   Person ok[n];
-
- 
  
    readData(ok, n);
     writeData(ok, n);
