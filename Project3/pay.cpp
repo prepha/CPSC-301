@@ -16,7 +16,7 @@ void readData(vector<Person> &employees)
     string companyName;
     float  hoursWorked;
     float  payRate;
-    vector<Person>::iterator it;
+
 
 
 std::fstream hello("input.txt");
@@ -38,17 +38,7 @@ while(hello>>firstName>>lastName>>employeeID>>companyName>>hoursWorked>>payRate)
    count++;
 }
 cout<<count<<endl;
-/*
-for(int i=0; i<employees.size();i++)
-{
-  employees.at(i).setFirstName(firstName);
-  employees.at(i).setLastName(lastName);
-  employees.at(i).setEmployeeId(employeeID);
-  employees.at(i).setCompanyName(companyName);
-  employees.at(i).setHoursWorked(hoursWorked);
-  employees.at(i).setPayRate(payRate);
-}
-*/
+
   for(int k=0; k<employees.size(); k++)
   {
    cout<<employees.at(k).fullName()<<endl;
@@ -57,22 +47,57 @@ for(int i=0; i<employees.size();i++)
 }
 
 void getCompanies(vector<Person> &employees, vector<string> &companyNames)
-{
-   
+{ 
    for(int i=0; i<employees.size(); i++)
    {
       companyNames.push_back(employees[i].getCompanyName());
-      cout<<companyNames[i]<<endl<< " ";
+      cout<<employees[i].fullName()<< "  "<<companyNames[i]<<endl<< " ";
    }
 }
 
 void printHighestPaid(vector<Person> &employees)
 {
-
+ float highest =0.0;
+for(int l=0; l<employees.size(); l++)
+{
+   if(employees[l].totalPay() > highest)
+   {
+      highest=employees[l].totalPay();   
+   }
+} 
+     for(int j=0; j<employees.size(); j++)
+     {
+        if(highest ==employees[j].totalPay())
+        {
+         cout<< "Highest Paid:" <<employees[j].fullName()<<endl;
+         cout<< "Employee ID:"  <<employees[j].getEmployeeId()<<endl;
+         cout<<"Employer:"  <<employees[j].getCompanyName()<<endl;
+         cout<<"Total Pay: "<<highest<<endl; 
+        }
+     }    
 }
+
 
 void separateAndSave(vector<Person> &employees, vector<string> &companyNames)
 {
+
+  
+   for(int p=0; p<companyNames.size(); p++)
+   {
+      if(employees[p].getCompanyName() == employees[p].getCompanyName())
+      {
+         std::fstream sup("Intel.txt");
+         sup<<employees[p].fullName()<<endl;
+         sup<<employees[p].getEmployeeId()<<endl;
+         sup<<employees[p].getCompanyName()<<endl;
+         cout<<employees[p].totalPay()<<endl;
+
+         
+      }
+
+
+   
+   }
     
 }
 
@@ -85,8 +110,8 @@ int main()
 
     readData(employees);
    //getCompanies(employees,companyNames);
-   //void printHighestPaid(vector<Person> employees);
-   //void separateAndSave(vector<Person> employees, vector<string> companyNames);
+   //printHighestPaid(employees);
+    separateAndSave( employees, companyNames);
 /*
 if(employees.empty())
 {
