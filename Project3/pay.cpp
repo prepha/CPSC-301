@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <vector>
 #include <fstream>
+
 using namespace std;
 
 void readData(vector<Person> &employees)
@@ -23,13 +24,21 @@ std::fstream hello("input.txt");
 
 int count=0;
 Person ok;
+
 while(hello>>firstName>>lastName>>employeeID>>companyName>>hoursWorked>>payRate)
 {
-  employees.push_back(ok);
+  ok.setFirstName(firstName);
+  ok.setLastName(lastName);
+  ok.setEmployeeId(employeeID);
+  ok.setCompanyName(companyName);
+  ok.setHoursWorked(hoursWorked);
+  ok.setPayRate(payRate);
+
+   employees.push_back(ok);
    count++;
 }
 cout<<count<<endl;
-
+/*
 for(int i=0; i<employees.size();i++)
 {
   employees.at(i).setFirstName(firstName);
@@ -39,7 +48,7 @@ for(int i=0; i<employees.size();i++)
   employees.at(i).setHoursWorked(hoursWorked);
   employees.at(i).setPayRate(payRate);
 }
-
+*/
   for(int k=0; k<employees.size(); k++)
   {
    cout<<employees.at(k).fullName()<<endl;
@@ -72,12 +81,10 @@ int main()
 
    vector<Person> employees;
    vector<string> companyNames;
-   std::fstream hello;
-  hello.open("input.txt");
-
+   
 
     readData(employees);
-   // getCompanies(employees,companyNames);
+   //getCompanies(employees,companyNames);
    //void printHighestPaid(vector<Person> employees);
    //void separateAndSave(vector<Person> employees, vector<string> companyNames);
 /*
@@ -91,5 +98,5 @@ if(employees.empty())
 }
 */
 
-   hello.close();
+   
 }
