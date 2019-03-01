@@ -35,6 +35,7 @@ while(hello>>firstName>>lastName>>employeeID>>companyName>>hoursWorked>>payRate)
   ok.setPayRate(payRate);
 
    employees.push_back(ok);
+
    count++;
 }
 cout<<count<<endl;
@@ -53,6 +54,7 @@ void getCompanies(vector<Person> &employees, vector<string> &companyNames)
       companyNames.push_back(employees[i].getCompanyName());
       cout<<employees[i].fullName()<< "  "<<companyNames[i]<<endl<< " ";
    }
+
 }
 
 void printHighestPaid(vector<Person> &employees)
@@ -65,52 +67,58 @@ for(int l=0; l<employees.size(); l++)
       highest=employees[l].totalPay();   
    }
 } 
-     for(int j=0; j<employees.size(); j++)
-     {
-        if(highest ==employees[j].totalPay())
-        {
+
+for(int j=0; j<employees.size(); j++)
+{
+   if(highest ==employees[j].totalPay())
+    {
          cout<< "Highest Paid:" <<employees[j].fullName()<<endl;
          cout<< "Employee ID:"  <<employees[j].getEmployeeId()<<endl;
          cout<<"Employer:"  <<employees[j].getCompanyName()<<endl;
          cout<<"Total Pay: "<<highest<<endl; 
-        }
-     }    
+    }
+}    
 }
 
 
 void separateAndSave(vector<Person> &employees, vector<string> &companyNames)
 {
-
   
-   for(int p=0; p<companyNames.size(); p++)
+   
+
+   for(int p=0; p<employees.size(); p++)
    {
-      if(employees[p].getCompanyName() == employees[p].getCompanyName())
+      if(employees.at(p).getCompanyName() == companyNames.front())
       {
-         std::fstream sup("Intel.txt");
+       std::fstream sup("Intel.txt");
+         
+         cout<<employees.at(p).fullName()<< " "<<employees.at(p).getEmployeeId()<<" "<<companyNames.at(p)<< " "<<employees.at(p).totalPay() <<endl;
+         //cout<<employees.at(p).fullName()<<endl;
+         /*
          sup<<employees[p].fullName()<<endl;
          sup<<employees[p].getEmployeeId()<<endl;
          sup<<employees[p].getCompanyName()<<endl;
-         cout<<employees[p].totalPay()<<endl;
-
-         
+         sup<<employees[p].totalPay()<<endl;
+         */
+      }  
+     
       }
-
-
-   
    }
+   
     
-}
+
 
 int main()
 {
-
+ 
+ std::fstream hello("input.txt");
    vector<Person> employees;
    vector<string> companyNames;
    
 
-    readData(employees);
-   //getCompanies(employees,companyNames);
-   //printHighestPaid(employees);
+   readData(employees);
+   getCompanies(employees,companyNames);
+   // printHighestPaid(employees);
     separateAndSave( employees, companyNames);
 /*
 if(employees.empty())
@@ -122,6 +130,6 @@ if(employees.empty())
    employees.push_back(ok);
 }
 */
-
+hello.close();
    
 }
