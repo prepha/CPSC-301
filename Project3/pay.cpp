@@ -84,10 +84,8 @@ for(int j=0; j<employees.size(); j++)
 void separateAndSave(vector<Person> &employees, vector<string> &companyNames)
 {
    int n=0;
-  
-   float Inttotal=0.0;
     std::fstream sup("Intel.txt");
- 
+     float Inttotal=0.0;
    for(int p=0; p<employees.size(); p++)
    { 
       if(employees.at(p).getCompanyName() == companyNames.front())
@@ -114,8 +112,6 @@ int s=1;
     hello<<"Total:"<<" "<<Boetotal<<endl;
      
        
-
-
    int d =2;
    std::fstream bonjour("Douglas.txt");
    float Dougtotal=0.0;
@@ -165,6 +161,7 @@ for(int b=0; b<employees.size(); b++)
 }
 
     
+
 
 int main()
 {
