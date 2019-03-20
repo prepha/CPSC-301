@@ -176,7 +176,6 @@ Person *personptr;
   readData(n);
 
 
-
   hello.close();
 
 
