@@ -1,3 +1,6 @@
+//Preston Phan 
+//Section 1
+
 #include "person.cpp"
 #include <iostream>
 #include <fstream>
