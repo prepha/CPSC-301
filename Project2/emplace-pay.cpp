@@ -1,66 +1,70 @@
-#include "person.h"
-Person::Person()
+#include "person.cpp"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string.h>
+#include<stdio.h>
+
+void readData(vector<Person> &ok)
 {
+  string fName;
+  string lName;
+  float rate =0.0;
+  float hours=0.0;
+   std::fstream hello;
+  hello.open("input.txt");
+  while(hello>>fName >>lName >>rate >>hours)
+  {
+    Person().setFirstName(fName);  
+    Person().setLastName(lName);
+    Person().setPayRate(rate);
+    Person().setHoursWorked(hours);
+
+    
+    ok.emplace_back(Person(fName,lName,rate,hours));
+   
+  }
+
+ 
+ hello.close();
 
 }
 
-Person::Person(string fName, string lName, float rate, float hours)
+void writeData(vector<Person> &ok)
 {
-   firstName=fName;
-   lastName=lName;
-   payRate=rate;
-   hoursWorked=hours;
+  std::fstream sup ("output.txt");
+  
+ 
+ for(int i=0; i <ok.size(); i++)
+ { 
+      
+     sup<<ok.at(i).fullName()<< " ";
 
-}
-string Person::getFirstName()
-{
-    return firstName;
-}
+    sup<<ok.at(i).totalPay()<<endl;
 
-void Person::setFirstName(string fName)
-{
-   firstName = fName;
-}
+   
+    cout<<ok.at(i).fullName()<< " ";
+     
+      cout<<ok.at(i).totalPay()<<endl;
 
-string Person::getLastName()
-{
-    return lastName;
+
+ }
 }
 
-void Person::setLastName(string lName)
+int main()
 {
-   lastName =lName;
+
+     std::fstream hello;
+  hello.open("input.txt");
+
+//Person ok[n];
+ //int n =20;
+ vector<Person> ok;
+  
+ 
+   readData(ok);
+   writeData(ok);
+
+ 
+
 }
-
-float Person::getPayRate()
-{
-    return payRate;
-}
-
-void Person::setPayRate(float rate)
-{
-    payRate = rate;
-}
-
-float Person::getHoursWorked()
-{
-    return hoursWorked;
-}
-
-void Person::setHoursWorked(float hours)
-{
-    hoursWorked = hours;
-}
-
-float Person::totalPay()
-{
-    return hoursWorked * payRate;
-}
-
-string Person::fullName()
-{
-    return firstName + " " +lastName;
-}
-
-
-
