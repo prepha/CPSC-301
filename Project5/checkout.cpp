@@ -6,6 +6,8 @@
 #include <vector>
 #include "person.cpp"
 #include "book.cpp"
+#include <string.h>
+#include <string>
 
 using namespace std;
 
@@ -66,13 +68,10 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
        }
        else
        {
-           cout<<"Invalid ID card"<<endl;
+           cout<<"ID card not found"<<endl;
        }
        
     }
-
-
-
 
     cout<<"Please enter Book ID:"<<endl;
     cin>>bookID;
@@ -83,6 +82,16 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
       if(bookID==books[i]->getId())
       {
        cout<<"Title: "<< books[i]->getTitle();
+        cardholder[i]->setActive(1);
+      }
+      else if (cardholder[i]->isActive())
+      {
+          cout<<"Book is in use"<<endl;
+      }
+      
+      else
+      {
+          cout<<"book not found"<<endl;
       }
       
   }
