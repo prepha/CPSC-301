@@ -76,13 +76,12 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
     cout<<"Please enter Book ID:"<<endl;
     cin>>bookID;
 
-
   for(int i =0; i<books.size(); i++)
   {
       if(bookID==books[i]->getId())
       {
        cout<<"Title: "<< books[i]->getTitle();
-        cardholder[i]->setActive(1);
+        cardholder[i]->setActive(true);
       }
       else if (cardholder[i]->isActive())
       {
@@ -95,9 +94,32 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
       }
       
   }
-
    
 }
+
+void BookReturn(vector<Person*> &cardholder, vector<Book*> &books)
+  {
+
+       int card, bookID;
+      cout<<"Enter a book ID number to return"<<endl;
+      cin>>bookID;
+      for (int i=0; i<books.size();i++)
+      {
+          if(bookID ==books[i]->getId())
+          {
+              cout<<"Title:"<<books[i]->getTitle();
+              cardholder[i]->isActive();
+              cardholder[i]->setActive(0);
+              cout<<"Book returned";
+          }
+          else
+          {
+              cout<<"Book is still in use"<<endl;
+          }
+          
+      }
+      //for book return enter in ID then use set active to false;
+  }
 /* You are not obligated to use these function declarations - they're just given as examples
 void readBooks(vector<Book *> & myBooks) {
     return;
