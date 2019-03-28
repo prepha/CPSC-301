@@ -31,10 +31,18 @@ void readBooks(vector<Book *> &books)
     string   title;
     string   author;
     string   category;
+
     while(hello>>bookID>>title>>author>>category)
     {
-      books.emplace_back(bookID,title,author,category);
-    } 
+        books.emplace_back(new Book(bookID,title,author,category));
+    }
+    
+   
+   // cout<<books.size()<<endl;
+    for(int i=0;i<books.size();i++)
+    {
+      //  cout<<books[i]->getCategory()<<endl;
+    }
 
 }
 
@@ -49,39 +57,50 @@ int readPersons(vector<Person *> &cardholders)
      
     while(sup>>cardID>>active>>firstName>>lastName)
     {   
-        cardholders.emplace_back(cardID,active,firstName,lastName);
+        cardholders.emplace_back(new Person(cardID,active,firstName,lastName));
     }
-    return cardID;
+   // cout<<cardholders.size()<<endl;
+
+    return 0;
 }
 
 void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
 {
     int card, bookID;
-  
+    bool cardid= false;
+    
+
     cout<<"Please enter Card ID:"<<endl;
     cin>>card;
+
     for(int i =0; i<cardholder.size();i++)
     {
-       if(card==cardholder.at(i)->getId())
+       if(cardholder[i]->getId() == card)
        {
+           
            cout<<"Cardholder:"<<cardholder[i]->fullName();
-       }
-       else
-       {
-           cout<<"ID card not found"<<endl;
-       }
-       
+           cout<<"Please enter Book ID:"<<endl;
+            cin>>bookID;
+            cardid=true;
+       }       
+    }
+    if(cardid==false)
+    {
+        cout<<"book id not found"<<endl;  
     }
 
-    cout<<"Please enter Book ID:"<<endl;
-    cin>>bookID;
-
+   
+        
   for(int i =0; i<books.size(); i++)
   {
       if(bookID==books[i]->getId())
       {
        cout<<"Title: "<< books[i]->getTitle();
-        cardholder[i]->setActive(true);
+      // books[i]->setPersonPtr(cardholder[i]);  
+       // cardholder[bookID]->setActive(1); 
+    
+     //   cardholder[i]->setActive(true);
+    
       }
       else if (cardholder[i]->isActive())
       {
@@ -108,9 +127,13 @@ void BookReturn(vector<Person*> &cardholder, vector<Book*> &books)
           if(bookID ==books[i]->getId())
           {
               cout<<"Title:"<<books[i]->getTitle();
-              cardholder[i]->isActive();
-              cardholder[i]->setActive(0);
-              cout<<"Book returned";
+             // cardholder[i]->isActive();
+              if(cardholder[i]->isActive())
+              {
+               cardholder[i]->setActive(0);
+               cout<<"Book returned";
+              }
+            
           }
           else
           {
@@ -146,10 +169,14 @@ int main()
 {
     vector<Book *> books;  // book.h
     vector<Person *> cardholders; //person.h
- 
-    int choice;
+    
+    
+  int choice;
     do
     {
+     readBooks(books);
+     readPersons(cardholders);
+       
         // If you use cin anywhere, don't forget that you have to handle the <ENTER> key that 
         // the user pressed when entering a menu option. This is still in the input stream.
         printMenu();
@@ -162,6 +189,7 @@ int main()
                 break;
 
             case 2:
+                BookReturn(cardholders,books);
                 // Book return
                 break;
 
@@ -196,4 +224,7 @@ int main()
         cout << endl;
    } while(choice != 8);
       return 0;
+    
+ 
+
 }
