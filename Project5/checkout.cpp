@@ -8,6 +8,7 @@
 #include "book.cpp"
 #include <string.h>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -31,19 +32,16 @@ void readBooks(vector<Book *> &books)
     string   title;
     string   author;
     string   category;
-
-    while(hello>>bookID>>title>>author>>category)
+    string line;   // accounts for the empty spaces after each variables such as ID, title, author,category
+    while(hello>>bookID)
     {
+         getline(hello,line);   // reads in the white space after 16582
+        getline(hello,title);
+        getline(hello,author);
+        getline(hello,category);
+        getline(hello,line);
         books.emplace_back(new Book(bookID,title,author,category));
     }
-    
-   
-   // cout<<books.size()<<endl;
-    for(int i=0;i<books.size();i++)
-    {
-      //  cout<<books[i]->getCategory()<<endl;
-    }
-
 }
 
 int readPersons(vector<Person *> &cardholders) 
@@ -59,8 +57,11 @@ int readPersons(vector<Person *> &cardholders)
     {   
         cardholders.emplace_back(new Person(cardID,active,firstName,lastName));
     }
-   // cout<<cardholders.size()<<endl;
 
+    for(int i=0; i<cardholders.size();i++)
+    {
+        // cout<<cardholders[i]->getFirstName()<<endl;
+    }
     return 0;
 }
 
@@ -77,16 +78,15 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
     {
        if(cardholder[i]->getId() == card)
        {
-           
            cout<<"Cardholder:"<<cardholder[i]->fullName();
            cout<<"Please enter Book ID:"<<endl;
             cin>>bookID;
             cardid=true;
-       }       
+       }      
     }
     if(cardid==false)
     {
-        cout<<"book id not found"<<endl;  
+     cout<<"book id not found"<<endl; 
     }
 
    
@@ -99,7 +99,7 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
       // books[i]->setPersonPtr(cardholder[i]);  
        // cardholder[bookID]->setActive(1); 
     
-     //   cardholder[i]->setActive(true);
+      // cardholder[i]->setActive(true);
     
       }
       else if (cardholder[i]->isActive())
@@ -118,7 +118,6 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
 
 void BookReturn(vector<Person*> &cardholder, vector<Book*> &books)
   {
-
        int card, bookID;
       cout<<"Enter a book ID number to return"<<endl;
       cin>>bookID;
