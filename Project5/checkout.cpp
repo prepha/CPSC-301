@@ -89,40 +89,43 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
     {
        if(cardholder[i]->getId() == card)
        {
+           cardid =true;
            cout<<"Cardholder:"<<cardholder[i]->fullName();
            cout<<"Please enter Book ID:"<<endl;
             cin>>bookID;       
-            cardholder[i]->setActive(true);
-            cout<<cardholder[i]->fullName()<<endl<<cardholder[i]->isActive()<<endl;
-       }  
-         else if(cardholder[i]->getId() > card && cardholder[i]->getId() < card)
-       {
-           cout<<"Card id not found"<<endl;
-          // continue;
-       }
-     //  break;
-    }
+           // cardholder[i]->setActive(true);
+        
 
+            cout<<cardholder[i]->fullName()<<endl<<cardholder[i]->isActive()<<endl;
+       } 
+    
+       
+    }
+          
 
 for(int k =0; k<books.size(); k++)
   {
       if(books.at(k)->getId() ==bookID)
       {
        cout<<"Title: "<< books[k]->getTitle()<<endl;
-       books[k]->setPersonPtr(cardholder[k]);  
+       books[k]->setPersonPtr(cardholder[k]);
+       books[k]->getPersonPtr()->setActive(true); 
        cout<<"Rental completed"<<endl;
+        if(books[k]->getPersonPtr()->isActive())
+        {
+            cout<< "book is still in use"<<endl;
+        }
       }  
-/*
-       if (books[k]->getId() != card)
-      {
-           continue;
-          //cout<<"Card ID not found"<<endl;
-          //break;    
-      }
-*/
+      
+      
+ }
 
-  }
-
+ 
+    
+if(cardid==false)
+    {
+        cout<<"card id not found"<<endl;
+    }
   
 }
 
