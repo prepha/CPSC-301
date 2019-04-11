@@ -45,7 +45,7 @@ void readBooks(vector<Book *> &books)
    
 }
 
-int readPersons(vector<Person *> &cardholders) 
+void readPersons(vector<Person *> &cardholders) 
 {
     std::fstream sup;
     sup.open("persons.txt");
@@ -59,7 +59,7 @@ int readPersons(vector<Person *> &cardholders)
         cardholders.emplace_back(new Person(cardID,active,firstName,lastName));
     }
 
-    return 0;
+   // return 0;
 }
 void readRentals(vector<Book *> & books, vector<Person *> cardholders)
 {
@@ -93,7 +93,7 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
            cout<<"Cardholder:"<<cardholder[i]->fullName();
            cout<<"Please enter Book ID:"<<endl;
             cin>>bookID;       
-           // cardholder[i]->setActive(true);
+            cardholder[i]->setActive(true);
         
 
             cout<<cardholder[i]->fullName()<<endl<<cardholder[i]->isActive()<<endl;
@@ -108,16 +108,21 @@ for(int k =0; k<books.size(); k++)
       if(books.at(k)->getId() ==bookID)
       {
        cout<<"Title: "<< books[k]->getTitle()<<endl;
-       books[k]->setPersonPtr(cardholder[k]);
-       books[k]->getPersonPtr()->setActive(true); 
+       for(int i=0; i<cardholder.size();i++)
+       {
+        books[k]->setPersonPtr(cardholder[i]);
+        books[k]->getPersonPtr()->setActive(true); 
+       }
        cout<<"Rental completed"<<endl;
-        if(books[k]->getPersonPtr()->isActive())
+       
+       cout<<books[k]->getPersonPtr()->isActive()<<endl<<books[k]->getPersonPtr()->fullName()<<endl;
+      }  
+      /*
+       if(books[k]->getPersonPtr()->isActive())
         {
             cout<< "book is still in use"<<endl;
         }
-      }  
-      
-      
+        */
  }
 
  
