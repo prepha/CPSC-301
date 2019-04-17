@@ -107,9 +107,6 @@ void BookCheckout(vector<Book*> &books, vector<Person*> &cardholder)
            cout<<"Cardholder:"<<cardholder[i]->fullName();
            cout<<"Please enter Book ID:"<<endl;
             cin>>bookID; 
-      
-          //  cardholder[i]->setActive(true);
-           // cout<<cardholder[i]->fullName()<<endl<<cardholder[i]->isActive()<<endl;
        }    
     }
           
@@ -240,18 +237,80 @@ void viewOut(vector<Book*> books, vector<Person*> cardholders)
          
 }
 
-    // if(books[i]->getPersonPtr()->getId() == cardID)
+void newLibrary(vector<Person*> &cardholders,int nextID)
+{
+    string firstName, lastName;
+    cout<<"Enter First Name"<<endl;
+    cin>>firstName;
+    cout<<"Enter Last Name"<<endl;
+    cin>>lastName;
 
-/* You are not obligated to use these function declarations - they're just given as examples
+    for(int i=0; i<cardholders.size();i++)
+    {
+        if(cardholders[i]->getFirstName() ==firstName && cardholders[i]->getLastName()==lastName)
+        {
+            cout<<  "Cardholder id: is now active"  <<cardholders[i]->getId()<<endl;
+            cardholders[i]->setActive(1);  
+            cout<<cardholders[i]->fullName()<<endl; 
+            
+                
+        }
+        else if(i==cardholders.size()-1)
+        {
+             cardholders.push_back(new Person(nextID,1,firstName,lastName));
+             cout<<"card ID:"<<cardholders[i+1]->getId()<<endl;
+             cout<<"Cardholder:"<<cardholders[i+1]->fullName()<<endl;
+             break;
+        
+            
+        }
+    }
+    
+}
+void closeCard(vector<Person*> &cardholders)
+{
+    int cardID;
+    string fullname,input;
+    
+    
+    cout<<"Enter card ID:"<<endl;
+    cin>>cardID;
+    bool id=false;
 
-void openCard(vector<Person *> & myCardholders, int nextID) {
-    return;
+    for(int i=0; i<cardholders.size();i++)
+    {
+        if(cardholders[i]->getId() ==cardID)
+        {
+            id=true;
+            cout<<cardholders[i]->fullName()<<endl;
+            cout<<"Are you sure you want to deactivate? Type in yes or no"<<endl;
+            cin>>input;
+            if(input =="yes")
+            {
+                cardholders[i]->setActive(0);
+                cout<<"Card deactivated"<<endl;
+            }
+            else if(input =="no")
+            {
+                cout<<"Card still active"<<endl;
+              
+            }
+        }
+        else if(cardholders[i]->isActive() == false && cardholders[i]->getId() ==cardID)
+        {
+            cout<<cardholders[i]->fullName()<<endl;
+            cout<<"Card ID is not active"<<endl;
+            
+        }
+    }
+
+if(id==false)
+{
+    cout<<"Card id not found"<<endl;
 }
 
-Book * searchBook(vector<Book *> myBooks, int id) {
-    return nullptr;
 }
-*/
+
 
 int main()
 {
@@ -261,6 +320,8 @@ int main()
      readBooks(books);
      readPersons(cardholders);
      readRentals(books, cardholders);
+     int nextID;
+
     
     
     
@@ -301,10 +362,12 @@ int main()
 
             case 6:
                 // Open new library card
+                newLibrary(cardholders,nextID);
                 break;
 
             case 7:
                 // Close library card
+                closeCard(cardholders);
                 break;
                 
             case 8:
