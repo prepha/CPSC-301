@@ -1,5 +1,5 @@
-// Name
-// Section #
+//Preston Phan
+//Section 1 Cpsc 301
 #include <iostream>
 #include <fstream>
 #include <string>
