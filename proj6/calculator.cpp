@@ -1,6 +1,3 @@
-
-// Name
-// Section
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,162 +11,234 @@ class digit
     digit *next = nullptr;
 };
 
-// Suggested functions
-digit * loadNumber(ifstream & file);
+digit * writeNum(ifstream & file);
 int digcmp(digit * left, digit *right);
 char getOperator(ifstream & file);
-void writeNumber(digit * num, ofstream & file);
-void deleteNumber(digit * num);
+void writeNum(digit * num, ofstream & file);
+void deleteNum(digit * num);
 digit * addNumbers(digit * left, digit * right);
 digit * subNumbers(digit * left, digit * right);
 void writeRecursive(digit * num, ofstream & file);
 void setNeg(digit * num);
-void printNumber(digit * num);
+void printNum(digit * num);
 void printRecursive(digit * num);
-void subCarry(digit * head, digit * prev);
+void subtractCarry(digit * head, digit * prev);
 digit * clearLeadingZeros(digit * num);
 
+//-----------------PROVIDED BY INSTRUCTOR-----------------
 int main() {
     digit * left, * right, * result;
+    int test;
+    char op;
     ofstream outFile ("output.txt");
     ifstream inFile ("largeNumbers.txt");
-    fstream hello;
-    hello.open("output.txt");
-
+    
     while (!inFile.eof()){
-        // implement program logic here
+        left  = writeNum(inFile);
+        right = writeNum(inFile);
+        if (left == nullptr || right == nullptr) {
+            // check after two reads if we didn't get numbers
+            // in case of one extra newline at end of file
+            break;
+        }
+        op = getOperator(inFile);
+
+        if (op == '+'){
+            result = addNumbers(left, right);
+        } else {
+            test = digcmp(left, right);
+            if (test > 0) {
+                result = subNumbers(left, right); // result will be positive
+                result = clearLeadingZeros(result);
+            } else if (test < 0) {
+                result = subNumbers(right, left); // result will be negative
+                result = clearLeadingZeros(result);
+                setNeg(result);
+            } else {
+                result = new digit; // result of subtraction was zero
+            }
+        }
+        writeNum(result, outFile);
+        deleteNum(left);
+        deleteNum(right);
+        deleteNum(result);
+        left = nullptr;
+        right = nullptr;
+        result = nullptr;
     }
-    hello.close();
+    
     outFile.close();
     inFile.close();
     return 0;
 }
 
+//-----------------PROVIDED BY INSTRUCTOR-----------------
 /* returns a number <0 || 0 || >0
 *  <0 right number is larger
 *   0  the numbers are equal
 *  >0 left number is larger
-*  only works if the number is stored lowest significant to greatest significant.
+*  only works if the number is stored with lowest significant at front of the list
 */
-int digcmp(digit * left, digit * right) {
-    int result = 0;
-    do {
-        if (left->data - right->data == 0) {
+int digcmp(digit * left, digit * right){
+    int result= 0;
+    do // the assignment guarantees there will not be zero length numbers
+    {
+        if (left->data - right->data == 0){
         } // take no action
         else {
-            result = left->data - right->data;
+            result= left->data - right->data;
         }
         left = left->next;
         right = right->next;
-
     } while (left != nullptr && right != nullptr);
-
     if (left == nullptr && right != nullptr) {
-        // right number is larger
-        result = -1;
+        // right number is longer and therefore larger
+        result= -1;
     }
-
     if (left != nullptr && right == nullptr) {
-        // left number is larger
-        result = 1;
+        // left number is longer and therefore larger
+        result= 1;
     }
     return result;
 }
 
-digit * loadNumber(ifstream & file)
- {
-     fstream hello;
-     hello.open("largeNumbers.txt");
-     int num;
-    
-     while(hello>>num);
-
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+digit * writeNum(ifstream & file){
+    if (file.eof())
     return nullptr;
-}
+    digit * head = new digit;
+    digit * dig = head;
 
-char getOperator(ifstream & file) 
-{
-    char sign;
-     fstream hello;
-     hello.open("largeNumbers.txt");
-    
-    while(!hello.eof())
-    {
-        hello>>sign;
-        hello.get(sign);
+    char aChar;
+    int num;
+
+    file.get(aChar);
+    while (aChar != '\n' && !file.eof()){
+        num = int(aChar - '0');
+        head->data = num;
+        file.get(aChar);
+        if (aChar != '\n'){
+            dig = head;
+            head = new digit;
+            head->next = dig;
+        }
     }
-    // hint: use get() and look at ASCII table
-    return sign;
+    return head;
 }
 
-void printRecursive(digit * num) 
-{
-    if(num ==nullptr)
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+char getOperator(ifstream & file){
+    char aChar;
+    string toss;
+
+    file.get(aChar);
+    getline(file, toss);
+
+    return aChar;
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void printRecursive(digit * num){
+    if (num == nullptr)
+    return;
+    printRecursive(num->next);
+    cout << num->data;
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void printNum(digit * num){
+    printRecursive(num);
+    cout << endl;
+
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void writeRecursive(digit * num, ofstream & file) {
+    if (num == nullptr)
+    return;
+    file << num->data;
+    writeRecursive(num->next, file);
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void writeNum(digit * num, ofstream & file){
+    writeRecursive(num, file);
+    file << endl;
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void deleteNum(digit * num){
+    digit * n;
+    while (num != nullptr)
     {
+        n = num->next;
+        delete num;
+        num = n;
+    }
+}
+
+// TODO: Implement function to add 2 numbers stored in 2 linked lists
+digit * addNumbers(digit * left, digit * right)
+{ // this function makes numbers in order.
+
+int num1 = 1234567;   
+int num2 = 9876543; 
+int sum =0;    
+digit * digitsum = nullptr;
+
+     num1 =left->data;
+    left->next =right;   // connects to node on the right
+   // left=left->next;   changes the actual pointer to whereever you assign
+    num2 =right->data;
+    //right->next=nullptr;  
+    sum=num1+num2;
+    digitsum+= num1 + num2;
+
+    left->data=1234567;
+    left->next=right;  // will connect the link between the nodes which is the left and right
+    left=left->next;   // will move the actual left pointer to right
+
+    right->data=9876543;
+
+
+    digitsum = left;
+    digitsum = right;
+
+    digitsum = new digit;
+    
+
+
+    return digitsum;
+}
+
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+void subtractCarry(digit * head, digit * prev){
+    if (head == nullptr){
         return;
+        } // safety check only, this should never happen!
+    if (head->data == 0){
+        head->data = 9;
+        subtractCarry(head->next, head);
+    } else {
+        head->data -= 1;
     }
-    else
-    {
-         printRecursive(num->next);
-         cout<<num->data;
-    }
 }
 
-void printNumber(digit * num) 
-{
-    printNumber(num->next);
-    cout<<num->data;
-
-}
-
-void writeRecursive(digit * num, ofstream & file) 
-{
-    if(num ==nullptr)
-    {
-        return;
-    }
-    else{
-        writeRecursive(num->next, file);
-        file << num->data;
-    }
-
-}
-
-void writeNumber(digit * num, ofstream & file) {
-
-}
-
-void deleteNumber(digit * num) {
-
-}
-
-digit * addNumbers(digit * left, digit * right) 
-{
-   /*
-     right->next;
-    left->next;
-    left =left->next;
-    left = right->next;
-    */
-
-  
-    
-
+// TODO: Implement function to subtract 2 numbers stored in 2 linked lists. Use provided helper functions
+digit * subNumbers(digit * left, digit * right){
     return nullptr;
 }
 
-void subCarry(digit * head, digit * prev) {
-
-}
-
-digit * subNumbers(digit * left, digit * right) {
-    return nullptr;
-}
-
-digit * clearLeadingZeros(digit * num) {
-    return nullptr;
-}
-
-void setNeg(digit * num) {
-
+//-----------------PROVIDED BY INSTRUCTOR-----------------
+digit * clearLeadingZeros(digit * num){
+    digit * next;
+    while (num->data == 0) {
+        next = num->next;
+        delete num;
+        num = next;
+        }
+        return num;
+    }
+void setNeg(digit * num){
+    num->data = -num->data;
 }
