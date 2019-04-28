@@ -181,18 +181,8 @@ void deleteNum(digit * num){
 digit * addNumbers(digit * left, digit * right)
 { // this function makes numbers in order.
 
-int num1 = 1234567;   
-int num2 = 9876543; 
-int sum =0;    
-digit * digitsum = nullptr;
-
-     num1 =left->data;
-    left->next =right;   // connects to node on the right
-   // left=left->next;   changes the actual pointer to whereever you assign
-    num2 =right->data;
-    //right->next=nullptr;  
-    sum=num1+num2;
-    digitsum+= num1 + num2;
+ int sum =0;    
+    digit * digitsum = nullptr;
 
     left->data=1234567;
     left->next=right;  // will connect the link between the nodes which is the left and right
@@ -200,12 +190,13 @@ digit * digitsum = nullptr;
 
     right->data=9876543;
 
-
-    digitsum = left;
-    digitsum = right;
+    right->next = digitsum;
+    right = right->next;
 
     digitsum = new digit;
     
+    digitsum->data = left->data + right->data;
+
 
 
     return digitsum;
