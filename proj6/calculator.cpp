@@ -181,25 +181,43 @@ void deleteNum(digit * num){
 digit * addNumbers(digit * left, digit * right)
 { // this function makes numbers in order.
 
- int sum =0;    
-    digit * digitsum = nullptr;
+digit* num1 =left;
+digit* num2 = right;
+digit* digitsum = new digit;
+digit* copy = digitsum;
+int carry = 0;
 
-    left->data=1234567;
-    left->next=right;  // will connect the link between the nodes which is the left and right
-    left=left->next;   // will move the actual left pointer to right
+digitsum->data=num1->data + num2->data;
+while( num1->next != nullptr && num2->next!=nullptr )
+{
+    num1= num1->next;
+    num2= num2->next;
 
-    right->data=9876543;
-
-    right->next = digitsum;
-    right = right->next;
-
+    digitsum->data = num1->data + num2->data;
+    copy = digitsum;
     digitsum = new digit;
+    digitsum->next =copy;
+     digitsum->data =num1->data + num2->data;
+ 
+    if(digitsum->data>=10)
+    {
+        carry=copy->data %9;
+       digitsum->data= num1->data + num2->data+ carry; 
+     // digitsum->data = carry;
+    }
+
+
     
-    digitsum->data = left->data + right->data;
+}
 
 
 
-    return digitsum;
+
+
+   // left->next=right;  // will connect the link between the nodes which is the left and right
+  //  left=left->next;   // will move the actual left pointer to right
+  
+return digitsum;
 }
 
 //-----------------PROVIDED BY INSTRUCTOR-----------------
@@ -217,7 +235,7 @@ void subtractCarry(digit * head, digit * prev){
 
 // TODO: Implement function to subtract 2 numbers stored in 2 linked lists. Use provided helper functions
 digit * subNumbers(digit * left, digit * right){
-    return nullptr;
+
 }
 
 //-----------------PROVIDED BY INSTRUCTOR-----------------
