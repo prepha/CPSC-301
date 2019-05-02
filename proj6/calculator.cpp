@@ -185,37 +185,112 @@ digit* num1 =left;
 digit* num2 = right;
 digit* digitsum = new digit;
 digit* copy = digitsum;
-int carry = 0;
+int carry = 1;
+bool over = false;
 
-digitsum->data=num1->data + num2->data;
+ digitsum->data=num1->data + num2->data;
+if(digitsum->data>=10)
+{
+    digitsum->data =(num1->data +num2->data) %10;
+
 while( num1->next != nullptr && num2->next!=nullptr )
 {
+  //  digitsum->data=num1->data + num2->data;
+/*
+    if(digitsum->data >=10)
+    {
+       // carry = digitsum->data %9; 
+         digitsum->data = num1->data +num2->data %10; 
+        // digitsum->data = digitsum->data %10;  
+    }
+*/
     num1= num1->next;
     num2= num2->next;
-
-    digitsum->data = num1->data + num2->data;
-    copy = digitsum;
-    digitsum = new digit;
-    digitsum->next =copy;
-     digitsum->data =num1->data + num2->data;
- 
-    if(digitsum->data>=10)
-    {
-        carry=copy->data %9;
-       digitsum->data= num1->data + num2->data+ carry; 
-     // digitsum->data = carry;
-    }
-
-
     
+    copy=digitsum;
+    digitsum = new digit;
+     digitsum->next=copy;
+     digitsum->data =num1->data + num2->data;
+   
+   if(digitsum->data >=10 )
+   {
+    digitsum->data = ((num1->data + num2->data)+carry) %10;
+    over= true;
+   }
+   else
+   {
+       digitsum->data =((num1->data)+(num2->data) + carry);
+       over=false;
+   }  
+}
 }
 
+  if(num1->next == nullptr && num2->next == nullptr && over==true)
+  {
+      copy =digitsum;
+      digitsum = new digit;
+      digitsum->next = copy;
+      digitsum->data= carry;
+  }
 
+  if(num1->next !=nullptr)
+  {
+      while(num1->next !=nullptr)
+      {
+          if(over== true)
+          {
+            num1=num1->next;
+            copy=digitsum;
+            digitsum = new digit;
+            digitsum->next=copy;
+            digitsum->data=num1->data+1;
 
+            if(digitsum->data <10)
+            {
+                over=false;
+            }
+          }
+          else
+          {
+             num1=num1->next;
+             copy=digitsum;
+             digitsum = new digit;
+             digitsum->next=copy;
+             digitsum->data =num1->data;
+          }  
+      }
+      if(num2->next != nullptr)
+      {
+          while(num2->next !=nullptr)
+          {
+              if(over == true)
+              {
+                  num2=num2->next;
+                  copy = digitsum;
+                  digitsum = new digit;
+                  digitsum->next= copy;
+                  digitsum->data =num2->data+1;
 
+                  if(digitsum->data <10)
+                  {
+                      over=false;
+                  }
 
-   // left->next=right;  // will connect the link between the nodes which is the left and right
-  //  left=left->next;   // will move the actual left pointer to right
+              }
+              else
+              {
+                 num2=num2->next;
+                 copy=digitsum;
+                 digitsum = new digit;
+                 digitsum->next = copy;
+                 digitsum->data= num2->data+1;
+              }
+              
+          }
+      }
+     
+  }
+
   
 return digitsum;
 }
@@ -235,7 +310,6 @@ void subtractCarry(digit * head, digit * prev){
 
 // TODO: Implement function to subtract 2 numbers stored in 2 linked lists. Use provided helper functions
 digit * subNumbers(digit * left, digit * right){
-
 }
 
 //-----------------PROVIDED BY INSTRUCTOR-----------------
