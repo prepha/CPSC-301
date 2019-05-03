@@ -186,7 +186,7 @@ digit* num2 = right;
 digit* digitsum = new digit;
 digit* copy = digitsum;
 int carry = 0;
-bool over = false;
+
 
  digitsum->data=num1->data + num2->data;
 if(digitsum->data==10)
@@ -196,34 +196,23 @@ if(digitsum->data==10)
     
 }
 while( num1->next != nullptr && num2->next!=nullptr )
-{
-   //  carry = digitsum->data %9;
-  //  digitsum->data=num1->data + num2->data;
-/*
-    if(digitsum->data >=10)
-    {
-       // carry = digitsum->data %9; 
-         digitsum->data = num1->data +num2->data %10; 
-        // digitsum->data = digitsum->data %10;  
-    }
-*/
-  
-    copy=digitsum;
-    digitsum = new digit;
+{ 
+     copy=digitsum;
+     digitsum = new digit;
      digitsum->next=copy;
      digitsum->data =num1->data + num2->data;
 
    if(digitsum->data >=10 )
    {
     digitsum->data = ((num1->data + num2->data)+carry) %10;
-    over= true;
+   
    }
    else
    {
-       digitsum->data =((num1->data)+(num2->data) + carry);
+       digitsum->data =((num1->data+num2->data) + carry);
    }  
      num1= num1->next;
-      num2= num2->next;
+     num2= num2->next;
 }
 
   if(num1->next == nullptr && num2->next == nullptr)
