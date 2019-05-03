@@ -207,14 +207,12 @@ while( num1->next != nullptr && num2->next!=nullptr )
         // digitsum->data = digitsum->data %10;  
     }
 */
-    num1= num1->next;
-    num2= num2->next;
-    
+  
     copy=digitsum;
     digitsum = new digit;
      digitsum->next=copy;
      digitsum->data =num1->data + num2->data;
-   
+
    if(digitsum->data >=10 )
    {
     digitsum->data = ((num1->data + num2->data)+carry) %10;
@@ -223,12 +221,12 @@ while( num1->next != nullptr && num2->next!=nullptr )
    else
    {
        digitsum->data =((num1->data)+(num2->data) + carry);
-      over=false;
    }  
+     num1= num1->next;
+      num2= num2->next;
 }
 
-
-  if(num1->next == nullptr && num2->next == nullptr && over==true)
+  if(num1->next == nullptr && num2->next == nullptr)
   {
       copy =digitsum;
       digitsum = new digit;
@@ -236,65 +234,24 @@ while( num1->next != nullptr && num2->next!=nullptr )
       digitsum->data= carry;
   }
 
-  if(num1->next !=nullptr)
-  {
       while(num1->next !=nullptr)
       {
-          if(over== true)
-          {
-            num1=num1->next;
-            copy=digitsum;
-            digitsum = new digit;
-            digitsum->next=copy;
-            digitsum->data=num1->data+1;
-
-            if(digitsum->data <10)
-            {
-                over=false;
-            }
-          }
-          else
-          {
-             num1=num1->next;
-             copy=digitsum;
-             digitsum = new digit;
-             digitsum->next=copy;
-             digitsum->data =num1->data;
-          }  
-      }
-      if(num2->next != nullptr)
-      {
-          while(num2->next !=nullptr)
-          {
-              if(over == true)
-              {
-                  num2=num2->next;
-                  copy = digitsum;
-                  digitsum = new digit;
-                  digitsum->next= copy;
-                  digitsum->data =num2->data+1;
-
-                  if(digitsum->data <10)
-                  {
-                      over=false;
-                  }
-
-              }
-              else
-              {
-                 num2=num2->next;
-                 copy=digitsum;
-                 digitsum = new digit;
-                 digitsum->next = copy;
-                 digitsum->data= num2->data+1;
-              }
-              
-          }
+        num1=num1->next;
+        copy=digitsum;
+        digitsum = new digit;
+        digitsum->next=copy;
+        digitsum->data=num1->data+carry;   
       }
      
-  }
-
-  
+    while(num2->next !=nullptr)
+    {
+    num2=num2->next;
+     copy = digitsum;
+    digitsum = new digit;
+    digitsum->next= copy;
+    digitsum->data =num2->data+carry;
+              
+    }
 return digitsum;
 }
 
