@@ -1,0 +1,84 @@
+#include <fstream>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
+
+
+using namespace std;
+void input7(fstream &hello)
+{
+    
+    hello.open("input7.txt");
+    int num;
+    int num2;
+    string fname;
+    string lname;
+    int num3;
+    string space;
+    while(hello>>num>>num2>>fname>>lname>>num3)
+    {
+        cout<<num<<endl;
+        cout<<num2<<endl;
+      cout<<fname<<lname<<" "<<num3<<endl;
+     cout<<endl;
+    }
+   
+    hello.close();
+
+}
+
+void input8(fstream &hello)
+{
+    hello.open("input8.txt");
+    int num;
+    int num2;
+    string line;
+    string emptyspace;
+    while(hello>>num>>num2)
+    {
+        getline(hello,emptyspace);
+         getline(hello,line);
+       
+        cout<<num<<endl;
+        cout<<num2<<endl;
+        cout<<line<<endl;
+       
+        cout<<endl;
+    }
+  
+    hello.close();
+    
+}
+
+void input9(fstream &hello)
+{
+    hello.open("input9.txt");
+    int num;
+    string fname;
+    string lname;
+    string emptyspace;
+    int age;
+    float balance;
+    string statement;
+    while(hello>>num>>fname>>lname>>age>>balance)
+    {
+        getline(hello,emptyspace);
+        hello>>statement;
+        cout<<num<<endl;
+        cout<<fname<<lname<<age<<balance<<endl;
+        cout<<statement<<endl;
+        cout<<endl;
+    }
+   
+}
+
+int main()
+{
+   
+     fstream hello;
+    // input7(hello); // finished
+    // input8(hello);  // works
+   //  input9(hello);   // finished
+}
