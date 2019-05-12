@@ -1,0 +1,67 @@
+#include <fstream>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
+
+
+using namespace std;
+void input4(fstream &hello)
+{
+    
+    hello.open("input4.txt");
+    string line;
+    while(getline(hello,line))
+    {
+        cout<<line<<endl;
+    }
+   
+    hello.close();
+
+}
+
+void input5(fstream &hello)
+{
+    hello.open("input5.txt");
+    int num;
+    string line;
+    string emptyspace;
+    while(hello>>num)
+    {
+        getline(hello,emptyspace);
+        getline(hello,line);
+        cout<<num<<endl;
+        cout<<line<<endl;
+    }
+    
+    hello.close();
+    
+}
+
+void input6(fstream &hello)
+{
+    hello.open("input6.txt");
+    int num;
+    string emptyspace;
+    string line;
+    while(hello>>num)
+    {
+        cout<<num<<endl;
+        getline(hello,emptyspace);
+        
+        getline(hello,line);
+      cout<<line<<endl;
+    }
+    hello.close();
+   
+}
+
+int main()
+{
+   
+     fstream hello;
+ //  input4(hello); // works
+  //  input5(hello); // works
+    input6(hello); // 98% works
+}
